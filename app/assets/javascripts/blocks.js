@@ -67,8 +67,20 @@ function OBlock(t) {
         [ [t[0], t[1]],
           [t[3], t[2]] ];
 
+  this.rotation2 =
+        [ [t[3], t[0]],
+          [t[2], t[1]] ];
 
-  this.rotations = [ this.rotation1 ];
+  this.rotation3 =
+        [ [t[2], t[3]],
+          [t[1], t[0]] ];
+
+  this.rotation4 =
+        [ [t[1], t[2]],
+          [t[0], t[3]] ];
+
+
+  this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
   this.currentRotation = 0;
 
   this.color = 0;
@@ -174,7 +186,7 @@ function rotate(block){
 
 function generateTiles() {
   tileArray = []
-  for (i = 0; i < 4; i++) { 
+  for (i = 0; i < 4; i++) {
     tileArray.push(new Tile());
   }
   return tileArray;
