@@ -12,6 +12,7 @@ var lineScore;
 var previousTime;
 var currentLevel = 1;
 var currentSpeed = SPEEDS[currentLevel-1];
+var currentBoggleString = [];
 
 $(window).load(function(){
 
@@ -185,11 +186,37 @@ function getKeyCode(e) {
 					currentBlock.gridY++;
 			}
 			break;
+
+			default: {
+				listenForKeys(e);
+			}
 		}
 	}
 	else {
 		startGame();
 	}
+}
+
+function isALetter(ltr) {
+	validLetters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+	if (validLetters.indexOf(ltr) >= 0) {
+		return true;
+	};
+	return false;
+}
+
+function listenForKeys(e) {
+	if (e.keyCode === 13) {
+		currentBoggleString = [];
+	}
+  if (isALetter(String.fromCharCode(e.keyCode))) {
+  	currentBoggleString.push(String.fromCharCode(e.keyCode));
+  }
+	updateLetterDisplay(currentBoggleString.join(""));
+}
+
+function updateLetterDisplay(display) {
+	$("#boggle_ltrs").text(display);
 }
 
 function letBlockFall() {
