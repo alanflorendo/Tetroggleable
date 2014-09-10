@@ -64,7 +64,7 @@ function findWord() {
     if (tilesOnBoard.length > 0) {
       wordScore = calculateScrabbleScore(tilesOnBoard, currentLetters.length)
       updateScores('word', wordScore)
-      makeTilesFall(tilesOnBoard);
+      tetris.makeTilesFall(tilesOnBoard);
       updateWordScores(letters, wordScore);
       statTracker.runStats(letters, wordScore);
     }
