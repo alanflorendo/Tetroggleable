@@ -149,7 +149,16 @@ function ZBlock(t) {
           [t[1], t[2]],
           [t[3], 0] ];
 
-  this.rotations = [ this.rotation1, this.rotation2 ];
+  this.rotation3 =
+        [ [t[0], t[2], 0],
+          [0, t[1], t[3]] ];
+
+  this.rotation4 =
+        [ [0, t[3]],
+          [t[2], t[1]],
+          [t[0], 0] ];
+
+  this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
   this.currentRotation = 0;
 
   this.color = 0;
@@ -168,7 +177,16 @@ function SBlock(t) {
           [t[2], t[1]],
           [0, t[3]] ];
 
-  this.rotations = [ this.rotation1, this.rotation2 ];
+  this.rotation3 =
+        [ [0, t[1], t[3]],
+          [t[0], t[2], 0] ];
+
+  this.rotation4 =
+        [ [t[3], 0],
+          [t[1], t[2]],
+          [0, t[0]] ];
+
+  this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
   this.currentRotation = 0;
 
   this.color = 0;
