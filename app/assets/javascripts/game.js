@@ -93,6 +93,7 @@ function startGame() {
 	currentLevel = 1;
 	currentSpeed = SPEEDS[currentLevel - 1];
 	$("#levels").text(1);
+	gameTiler = new TileGenerator();
 	gameCanvas = new Canvas();
 	gameTetris = new TetrisController();
 

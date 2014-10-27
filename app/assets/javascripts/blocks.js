@@ -206,13 +206,13 @@ function getRandomBlock() {
 
   switch(result) {
 
-    case 0: block = new LBlock(generateTiles()); break;
-    case 1: block = new OBlock(generateTiles()); break;
-    case 2: block = new ZBlock(generateTiles()); break;
-    case 3: block = new TBlock(generateTiles()); break;
-    case 4: block = new JBlock(generateTiles()); break;
-    case 5: block = new SBlock(generateTiles()); break;
-    case 6: block = new IBlock(generateTiles()); break;
+    case 0: block = new LBlock(gameTiler.generateTiles()); break;
+    case 1: block = new OBlock(gameTiler.generateTiles()); break;
+    case 2: block = new ZBlock(gameTiler.generateTiles()); break;
+    case 3: block = new TBlock(gameTiler.generateTiles()); break;
+    case 4: block = new JBlock(gameTiler.generateTiles()); break;
+    case 5: block = new SBlock(gameTiler.generateTiles()); break;
+    case 6: block = new IBlock(gameTiler.generateTiles()); break;
   }
 
   block.color = Math.floor(Math.random() * 8);
