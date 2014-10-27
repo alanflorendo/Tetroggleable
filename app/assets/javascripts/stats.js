@@ -11,11 +11,9 @@ function StatsTracker() {
 	this.trackCommonWords = function (word) {
 		if (this.wordsUsed[word]) {
 			this.wordsUsed[word] += 1;
-			console.log("added " + word + " as existing word");
 		}
 		else {
 			this.wordsUsed[word] = 1;
-			console.log("added " + word + " as new word");
 		}
 	}
 

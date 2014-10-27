@@ -6,7 +6,6 @@ function calculateScrabbleScore(tiles, length) {
 
   for (var i = 0; i < tiles.length; i++) {
     tile = gameData[tiles[i][0]][tiles[i][1]];
-    console.log(tile)
 
     currentLetterPoints = tile.score;
 
