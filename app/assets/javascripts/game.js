@@ -94,6 +94,7 @@ function startGame() {
 	currentSpeed = SPEEDS[currentLevel - 1];
 	$("#levels").text(1);
 	gameCanvas = new Canvas();
+	gameTetris = new TetrisController();
 
 	gameData = new Array();
 
@@ -122,18 +123,18 @@ function getKeyCode(e) {
 	if(isGameOver != true) {
 		switch(e.keyCode) {
 			case 32: {
-				letBlockFall();
+				gameTetris.letBlockFall();
 			}
 			break;
 
 			case 37: {
-				if( validateMove(currentBlock.gridX - 1, currentBlock.gridY, currentBlock.currentRotation) )
+				if( gameTetris.validateMove(currentBlock.gridX - 1, currentBlock.gridY, currentBlock.currentRotation) )
 					currentBlock.gridX--;
 			}
 			break;
 
 			case 39: {
-				if( validateMove(currentBlock.gridX + 1, currentBlock.gridY, currentBlock.currentRotation) )
+				if( gameTetris.validateMove(currentBlock.gridX + 1, currentBlock.gridY, currentBlock.currentRotation) )
 					currentBlock.gridX++;
 			}
 			break;
@@ -143,13 +144,13 @@ function getKeyCode(e) {
 				if(newRotation < 0)
 					newRotation = currentBlock.rotations.length - 1;
 
-				if( validateMove(currentBlock.gridX, currentBlock.gridY, newRotation) )
+				if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY, newRotation) )
 					currentBlock.currentRotation = newRotation;
 			}
 			break;
 
 			case 40: {
-				if( validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation) )
+				if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation) )
 					currentBlock.gridY++;
 			}
 			break;
@@ -161,11 +162,11 @@ function updateGame() {
   currentTime = new Date().getTime();
 
   if (currentTime - previousTime > currentSpeed && !(gameIsPaused)) {
-    if (validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation)) {
+    if (gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation)) {
       currentBlock.gridY += 1;
     }
     else {
-      landBlock(currentBlock);
+      gameTetris.landBlock(currentBlock);
       currentBlock = nextBlock;
       nextBlock = getRandomBlock();
       drawPreview();
