@@ -166,13 +166,6 @@ function SBlock(t) {
   this.gridY = -2;
 }
 
-function rotate(block){
-  nextRotation = block.currentRotation + 1;
-  if (nextRotation > block.rotations.length)
-    nextRotation = 0; // reset if +1 goes beyond #rotations (ie, 4)
-  block.rotation = nextRotation;
-}
-
 function getRandomBlock() {
 
   var result = Math.floor( Math.random() * 7 );

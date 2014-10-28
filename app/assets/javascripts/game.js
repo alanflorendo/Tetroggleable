@@ -66,9 +66,6 @@ $(window).load(function(){
 			else
 				$('boggle_letters').focus();
 	})
-
-	$('input:text:first').focus();
-	loadDictionary();
 });
 
 function browserTest() {
@@ -96,8 +93,10 @@ function startGame() {
 	gameTiler = new TileGenerator();
 	gameCanvas = new Canvas();
 	gameTetris = new TetrisController();
-
 	gameData = new Array();
+
+	$('input:text:first').focus();
+	loadDictionary();
 
 	for(row= 0; row < ROWS; row++) {
 		gameData[row] = new Array();
@@ -123,24 +122,24 @@ function getKeyCode(e) {
 
 	if(isGameOver != true) {
 		switch(e.keyCode) {
-			case 32: {
+			case 32: { // space bar
 				gameTetris.letBlockFall();
 			}
 			break;
 
-			case 37: {
+			case 37: { // left arrow
 				if( gameTetris.validateMove(currentBlock.gridX - 1, currentBlock.gridY, currentBlock.currentRotation) )
 					currentBlock.gridX--;
 			}
 			break;
 
-			case 39: {
+			case 39: { // right arrow
 				if( gameTetris.validateMove(currentBlock.gridX + 1, currentBlock.gridY, currentBlock.currentRotation) )
 					currentBlock.gridX++;
 			}
 			break;
 
-			case 38: {
+			case 38: { // up arrow
 				var newRotation = currentBlock.currentRotation - 1;
 				if(newRotation < 0)
 					newRotation = currentBlock.rotations.length - 1;
@@ -150,7 +149,7 @@ function getKeyCode(e) {
 			}
 			break;
 
-			case 40: {
+			case 40: { // down arrow
 				if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation) )
 					currentBlock.gridY++;
 			}
