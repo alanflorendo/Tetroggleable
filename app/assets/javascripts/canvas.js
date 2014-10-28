@@ -1,5 +1,12 @@
 function Canvas() {
 
+  var tileColor = "#E4C390";
+  var lX2 = "#95B8D3";
+  var lX3 = "#237CBF";
+  var wX2 = "#DD9ABD";
+  var wX3 = "#A63952";
+  var tileTextColor = "#000";
+
   this.drawTile = function(drawX, drawY) {
     context.strokeStyle = tileTextColor;
       context.beginPath();
@@ -110,6 +117,7 @@ function drawPreview() {
   prevsize = 20;
   prevDrawX = 0;
   prevDrawY = 0;
+  var tileTextColor = "#000";
 
   prevctx.beginPath();
   prevctx.rect(0, 0, 150, 100);

@@ -16,12 +16,6 @@ var lineScore;
 var previousTime;
 var dicts;
 var linePoints = 10;
-var tileColor = "#E4C390";
-var lX2 = "#95B8D3";
-var lX3 = "#237CBF";
-var wX2 = "#DD9ABD";
-var wX3 = "#A63952";
-var tileTextColor = "#000";
 var statTracker;
 var gameCanvas;
 
