@@ -22,3 +22,4 @@
 //= require tetris
 //= require scrabbleAndWords
 //= require game
+//= require startup

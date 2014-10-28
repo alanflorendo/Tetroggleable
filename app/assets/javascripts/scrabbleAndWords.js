@@ -47,7 +47,7 @@ function loadDictionary() {
 }
 
 function findWord() {
-  if (gameIsPaused && INPRODUCTION)
+  if (game.gameIsPaused && INPRODUCTION)
     return;
 
   var letters = $("#boggle_letters").val();
@@ -62,9 +62,9 @@ function findWord() {
 
     if (tilesOnBoard.length > 0) {
       wordScore = calculateScrabbleScore(tilesOnBoard, currentLetters.length)
-      updateScores('word', wordScore)
+      game.updateScores('word', wordScore)
       gameTetris.makeTilesFall(tilesOnBoard);
-      updateWordScores(letters, wordScore);
+      game.updateWordScores(letters, wordScore);
       statTracker.runStats(letters, wordScore);
     }
     else

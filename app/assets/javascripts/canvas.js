@@ -49,7 +49,7 @@ function Canvas() {
 
     context.fillStyle = tileTextColor;
     context.font = '20pt Arial';
-    if (!INPRODUCTION || !gameIsPaused) {
+    if (!INPRODUCTION || !game.gameIsPaused) {
       context.fillText(letter, letterPosX, letterPosY, 22);
     }
   }
@@ -60,7 +60,7 @@ function Canvas() {
 
     context.fillStyle = tileTextColor;
     context.font = 'bolder 8pt Arial';
-    if (!INPRODUCTION || !gameIsPaused) {
+    if (!INPRODUCTION || !game.gameIsPaused) {
       context.fillText(score, numberPosX, numberPosY, SIZE);
     }
   }

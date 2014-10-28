@@ -1,100 +1,73 @@
-var ROWS = 20;
-var COLS = 10;
-var SIZE = 32;
-var SPEEDS = [500, 450, 400, 350, 300, 250, 200, 150, 100, 50, 25, 10, 5, 1];
-var BOARDHEIGHT = 640;
-var BOARDWIDTH = 320;
-var INPRODUCTION = true;
+function TetrisGame() {
+	this.currentLevel = 1;
+	this.currentSpeed = SPEEDS[0];
+	this.currentLines = 0;
+	this.scrabbleScore = 0;
+	this.totalScore = 0;
+	this.isGameOver = false;
+	this.gameIsPaused = false;
 
-var canvas;
-var context;
-var preview;
-var prevctx;
-var currentBlock;
-var currentTime;
-var isGameOver;
-var lineScore;
-var previousTime;
-var currentLevel = 1;
-var currentSpeed = SPEEDS[currentLevel-1];
-var dicts;
-var gameIsPaused = false;
-var linePoints = 10;
-var tileColor = "#E4C390";
-var lX2 = "#95B8D3";
-var lX3 = "#237CBF";
-var wX2 = "#DD9ABD";
-var wX3 = "#A63952";
-var tileTextColor = "#000";
-var statTracker;
-var gameCanvas;
 
-function setRowsCols() {
-	width = $(window).width();
-	height = $(window).height();
 
-	if (height < 760) {
-		ROWS = 17;
-		BOARDHEIGHT = 544;
-		$("#game_canvas").attr("height", 544);
+	this.gameOver = function() {
+		statTracker.saveGame();
+		$("#boggle_letters").prop("disabled", true)
+	  $("#right-bar h3").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
 	}
+
+	this.updateScores = function(type, points) {
+		if (type === 'line') {
+			this.currentLines = this.currentLines + 1;
+			$("#lines").text(this.currentLines);
+			console.log(type + ":  " + points);
+		}
+		else if (type === 'word') {
+			this.scrabbleScore = this.scrabbleScore + points;
+			$("#scrabble_score").text(this.scrabbleScore);
+			console.log(type + ":  " + points);
+		}
+		this.totalScore = (this.currentLines * linePoints) + this.scrabbleScore;
+		$("#overall_score").text(this.totalScore);
+	}
+
+	this.toggleGamePause = function() {
+		this.gameIsPaused = !(this.gameIsPaused);
+	}
+
+
+	this.updateWordScores = function(word, score) {
+		var wordHTML = "<li>" + word + ": " + score + "</li>";
+		$("#word_scores ul").prepend(wordHTML)
+	}
+
+
+  this.advanceLevelIfNeeded = function() {
+    if (this.currentLines % 10 === 0 && this.currentLevel < SPEEDS.length){
+      this.currentLevel += 1;
+      this.currentSpeed = SPEEDS[this.currentLevel - 1];
+      $("#levels").text(this.currentLevel.toString());
+    };
+  }
+
+
+
 }
 
-$(window).load(function(){
-
-	canvas = document.getElementById('game_canvas');
-	context = canvas.getContext('2d');
-	browserTest();
-	preview = document.getElementById('game_preview');
-	prevctx = preview.getContext('2d');
-	lineScore = $('#lines');
-	previousTime = 0;
-	currentTime = 0;
-
-	//shrink for smaller screen
-	setRowsCols();
-
-	startGame();
-	$(document).keydown(function(event){
-			k = event.keyCode
-			if(k==32||k==37||k==38||k==39||k==40)
-				getKeyCode(event);
-			if(k==13)
-				findWord();
-			if(k==27)
-				toggleGamePause();
-			else
-				$('boggle_letters').focus();
-	})
-});
-
-function browserTest() {
-	if (Modernizr.touch) {
-		$("#game_main").hide();
-		$("#browser_notice").show();
-		$("#browser_notice .not_mobile").show();
-		return;
-	}
-	if (!Modernizr.canvas) {
-		$("#game_main").hide();
-		$("#browser_notice").show();
-		$("#browser_notice .upgrade").show();
-		return;
-	}
-}
 
 function startGame() {
 	var row, col;
-	currentLines = 0;
-	isGameOver = false;
-	currentLevel = 1;
-	currentSpeed = SPEEDS[currentLevel - 1];
-	$("#levels").text(1);
+	// currentLines = 0;
+	// currentLevel = 1;
+	// currentSpeed = SPEEDS[currentLevel - 1];
+	game = new TetrisGame();
 	gameTiler = new TileGenerator();
 	gameCanvas = new Canvas();
 	gameTetris = new TetrisController();
 	gameData = new Array();
+	statTracker = new StatsTracker();
 
+	$("#levels").text(game.currentLevel);
+	// $("#levels").game.currentLevel;
 	$('input:text:first').focus();
 	loadDictionary();
 
@@ -114,13 +87,12 @@ function startGame() {
 	requestAnimationFrame(updateGame);
 
 	drawPreview();
-	statTracker = new StatsTracker;
 }
 
 function getKeyCode(e) {
 	e.preventDefault();
 
-	if(isGameOver != true) {
+	if(game.isGameOver != true) {
 		switch(e.keyCode) {
 			case 32: { // space bar
 				gameTetris.letBlockFall();
@@ -161,7 +133,7 @@ function getKeyCode(e) {
 function updateGame() {
   currentTime = new Date().getTime();
 
-  if (currentTime - previousTime > currentSpeed && !(gameIsPaused)) {
+  if (currentTime - previousTime > game.currentSpeed && !(game.gameIsPaused)) {
     if (gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation)) {
       currentBlock.gridY += 1;
     }
@@ -179,40 +151,10 @@ function updateGame() {
   gameCanvas.drawBoard();
   gameCanvas.drawBlock(currentBlock);
 
-  if (isGameOver == false) {
+  if (game.isGameOver == false) {
     requestAnimationFrame(updateGame);
   }
   else {
-  	gameOver();
+  	game.gameOver();
   }
 }
-
-function gameOver() {
-	statTracker.saveGame();
-	$("#boggle_letters").prop("disabled", true)
-  $("#right-bar h3").fadeIn(500).fadeOut(500).fadeIn(500).fadeOut(500).fadeIn(500);
-}
-
-function updateScores(type, points) {
-	if (type === 'line') {
-		var lines = parseInt($("#lines").text()) + 1;
-		$("#lines").text(lines);
-	}
-	else if (type === 'word') {
-		var scrabbleScore = parseInt($("#scrabble_score").text()) + points;
-		$("#scrabble_score").text(scrabbleScore);
-	}
-	var totalScore = parseInt($("#overall_score").text()) + points;
-	$("#overall_score").text(totalScore);
-}
-
-function toggleGamePause() {
-	gameIsPaused = !(gameIsPaused);
-}
-
-
-function updateWordScores(word, score) {
-	var wordHTML = "<li>" + word + ": " + score + "</li>";
-	$("#word_scores ul").prepend(wordHTML)
-}
-

@@ -68,9 +68,9 @@ function TetrisController() {
 
         row++;
         lineFound = true;
-        currentLines++;
+        // game.currentLines++;
 
-        this.advanceLevelIfNeeded();
+        game.advanceLevelIfNeeded();
       }
       fullRow = true;
       col = COLS - 1;
@@ -78,7 +78,7 @@ function TetrisController() {
     }
 
     if(lineFound)
-      $("#lines").text(currentLines.toString());
+      $("#lines").text(game.currentLines.toString());
   }
 
   this.landBlock = function(block) {
@@ -167,14 +167,7 @@ function TetrisController() {
       col = 0;
       row --;
     }
-    updateScores('line', linePoints)
+    game.updateScores('line', linePoints)
   }
 
-  this.advanceLevelIfNeeded = function() {
-    if (currentLines % 10 === 0 && currentLevel < SPEEDS.length){
-      currentLevel += 1;
-      currentSpeed = SPEEDS[currentLevel - 1];
-      $("#levels").text(currentLevel.toString());
-    };
-  }
 } 
