@@ -7,8 +7,6 @@ function TetrisGame() {
 	this.isGameOver = false;
 	this.gameIsPaused = false;
 
-
-
 	this.gameOver = function() {
 		statTracker.saveGame();
 		$("#boggle_letters").prop("disabled", true)
@@ -19,12 +17,10 @@ function TetrisGame() {
 		if (type === 'line') {
 			this.currentLines = this.currentLines + 1;
 			$("#lines").text(this.currentLines);
-			console.log(type + ":  " + points);
 		}
 		else if (type === 'word') {
 			this.scrabbleScore = this.scrabbleScore + points;
 			$("#scrabble_score").text(this.scrabbleScore);
-			console.log(type + ":  " + points);
 		}
 		this.totalScore = (this.currentLines * linePoints) + this.scrabbleScore;
 		$("#overall_score").text(this.totalScore);
@@ -34,12 +30,10 @@ function TetrisGame() {
 		this.gameIsPaused = !(this.gameIsPaused);
 	}
 
-
 	this.updateWordScores = function(word, score) {
 		var wordHTML = "<li>" + word + ": " + score + "</li>";
 		$("#word_scores ul").prepend(wordHTML)
 	}
-
 
   this.advanceLevelIfNeeded = function() {
     if (this.currentLines % 10 === 0 && this.currentLevel < SPEEDS.length){
@@ -97,9 +91,6 @@ function TetrisGame() {
 
 function startGame() {
 	var row, col;
-	// currentLines = 0;
-	// currentLevel = 1;
-	// currentSpeed = SPEEDS[currentLevel - 1];
 	game = new TetrisGame();
 	gameTiler = new TileGenerator();
 	gameCanvas = new Canvas();
@@ -109,7 +100,6 @@ function startGame() {
 	wordTracker = new WordTracker();
 
 	$("#levels").text(game.currentLevel);
-	// $("#levels").game.currentLevel;
 	$('input:text:first').focus();
 	wordTracker.loadDictionary();
 
