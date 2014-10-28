@@ -74,7 +74,7 @@ $(window).load(function(){
 	$(document).keydown(function(event){
 			k = event.keyCode
 			if(k==32||k==37||k==38||k==39||k==40)
-				getKeyCode(event);
+				game.userControls(event);
 			if(k==13)
 				findWord();
 			if(k==27)

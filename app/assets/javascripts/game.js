@@ -50,6 +50,47 @@ function TetrisGame() {
   }
 
 
+	this.userControls = function(e) {
+		e.preventDefault();
+
+		if(game.isGameOver != true) {
+			switch(e.keyCode) {
+				case 32: { // space bar
+					gameTetris.letBlockFall();
+				}
+				break;
+
+				case 37: { // left arrow
+					if( gameTetris.validateMove(currentBlock.gridX - 1, currentBlock.gridY, currentBlock.currentRotation) )
+						currentBlock.gridX--;
+				}
+				break;
+
+				case 39: { // right arrow
+					if( gameTetris.validateMove(currentBlock.gridX + 1, currentBlock.gridY, currentBlock.currentRotation) )
+						currentBlock.gridX++;
+				}
+				break;
+
+				case 38: { // up arrow
+					var newRotation = currentBlock.currentRotation - 1;
+					if(newRotation < 0)
+						newRotation = currentBlock.rotations.length - 1;
+
+					if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY, newRotation) )
+						currentBlock.currentRotation = newRotation;
+				}
+				break;
+
+				case 40: { // down arrow
+					if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation) )
+						currentBlock.gridY++;
+				}
+				break;
+			}
+		}
+	}
+
 
 }
 
@@ -87,47 +128,6 @@ function startGame() {
 	requestAnimationFrame(updateGame);
 
 	drawPreview();
-}
-
-function getKeyCode(e) {
-	e.preventDefault();
-
-	if(game.isGameOver != true) {
-		switch(e.keyCode) {
-			case 32: { // space bar
-				gameTetris.letBlockFall();
-			}
-			break;
-
-			case 37: { // left arrow
-				if( gameTetris.validateMove(currentBlock.gridX - 1, currentBlock.gridY, currentBlock.currentRotation) )
-					currentBlock.gridX--;
-			}
-			break;
-
-			case 39: { // right arrow
-				if( gameTetris.validateMove(currentBlock.gridX + 1, currentBlock.gridY, currentBlock.currentRotation) )
-					currentBlock.gridX++;
-			}
-			break;
-
-			case 38: { // up arrow
-				var newRotation = currentBlock.currentRotation - 1;
-				if(newRotation < 0)
-					newRotation = currentBlock.rotations.length - 1;
-
-				if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY, newRotation) )
-					currentBlock.currentRotation = newRotation;
-			}
-			break;
-
-			case 40: { // down arrow
-				if( gameTetris.validateMove(currentBlock.gridX, currentBlock.gridY + 1, currentBlock.currentRotation) )
-					currentBlock.gridY++;
-			}
-			break;
-		}
-	}
 }
 
 function updateGame() {
