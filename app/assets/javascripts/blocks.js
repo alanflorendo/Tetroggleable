@@ -19,7 +19,6 @@ function LBlock(t) {
           [t[0], 0, 0] ];
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -3;
@@ -47,7 +46,6 @@ function JBlock(t) {
 
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -3;
@@ -73,7 +71,6 @@ function OBlock(t) {
 
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -2;
@@ -100,7 +97,6 @@ function IBlock(t) {
   this.rotation4 = [ [t[3],t[2],t[1],t[0]] ];
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 5;
   this.gridY = -4;
@@ -127,7 +123,6 @@ function TBlock(t) {
           [0, t[1]] ];
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -2;
@@ -154,7 +149,6 @@ function ZBlock(t) {
           [t[0], 0] ];
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -2;
@@ -181,7 +175,6 @@ function SBlock(t) {
           [0, t[0]] ];
 
   this.rotations = [ this.rotation1, this.rotation2, this.rotation3, this.rotation4 ];
-  this.currentRotation = 0;
 
   this.gridX = 4;
   this.gridY = -2;
@@ -208,5 +201,6 @@ function getRandomBlock() {
     case 6: block = new IBlock(gameTiler.generateTiles()); break;
   }
 
+  block.currentRotation = 0;
   return block;
 }
