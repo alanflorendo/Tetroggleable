@@ -4,6 +4,7 @@ var SIZE = 32;
 var SPEEDS = [500, 450, 400, 350, 300, 250, 200, 150, 100, 50, 25, 10, 5, 1];
 var BOARDHEIGHT = 640;
 var BOARDWIDTH = 320;
+var linePoints = 10; //number of points for completed tetris lines
 var INPRODUCTION = true;
 
 var canvas;
@@ -15,8 +16,7 @@ var currentTime;
 var lineScore;
 var previousTime;
 var dicts;
-var linePoints = 10;
-var statTracker;
+// var statTracker;
 var gameCanvas;
 
 function setRowsCols() {

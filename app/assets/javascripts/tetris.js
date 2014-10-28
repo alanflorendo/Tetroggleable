@@ -101,7 +101,7 @@ function TetrisController() {
     this.checkForCompleteLines();
 
     if(block.gridY < 0) {
-      isGameOver = true;
+      game.isGameOver = true;
     }
   }
 
