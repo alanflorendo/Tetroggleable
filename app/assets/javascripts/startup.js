@@ -76,7 +76,7 @@ $(window).load(function(){
 			if(k==32||k==37||k==38||k==39||k==40)
 				game.userControls(event);
 			if(k==13)
-				findWord();
+				wordTracker.findWord();
 			if(k==27)
 				game.toggleGamePause();
 			else

@@ -106,11 +106,12 @@ function startGame() {
 	gameTetris = new TetrisController();
 	gameData = new Array();
 	statTracker = new StatsTracker();
+	wordTracker = new WordTracker();
 
 	$("#levels").text(game.currentLevel);
 	// $("#levels").game.currentLevel;
 	$('input:text:first').focus();
-	loadDictionary();
+	wordTracker.loadDictionary();
 
 	for(row= 0; row < ROWS; row++) {
 		gameData[row] = new Array();
