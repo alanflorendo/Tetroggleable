@@ -167,8 +167,10 @@ function SBlock(t) {
 }
 
 function rotate(block){
-  rotation = block.rotation;
-  block.rotation = rotation[0].map(function (_, c) { return rotation.map(function (r) { return r[c]; }); });
+  nextRotation = block.currentRotation + 1;
+  if (nextRotation > block.rotations.length)
+    nextRotation = 0; // reset if +1 goes beyond #rotations (ie, 4)
+  block.rotation = nextRotation;
 }
 
 function getRandomBlock() {
